@@ -1,0 +1,8 @@
+{
+  "name": "multi-stream-downloader",
+  "version": "1.0.0",
+  "main": "downloader.js",
+  "author": "shikin.a.v@mail.ru",
+  "license": "MIT",
+  "type": "module"
+}
