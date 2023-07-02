@@ -4,5 +4,12 @@
   "main": "downloader.js",
   "author": "shikin.a.v@mail.ru",
   "license": "MIT",
-  "type": "module"
+  "type": "module",
+  "scripts": {
+    "start": "node downloader"
+  },
+  "engines": {
+    "node": "18.14.0",
+    "npm": "9.3.1"
+  }
 }
