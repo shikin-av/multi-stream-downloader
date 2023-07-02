@@ -1,5 +1,6 @@
 import { Readable } from 'node:stream'
 import fs from 'node:fs'
+import zlib from 'node:zlib'
 import getHeaders from './utils/getHeaders.js'
 import getRange from './utils/getRange.js'
 import getFileName from './utils/getFileName.js' 
@@ -29,7 +30,11 @@ import concatStreams from './utils/concatStreams.js'
     const merged = Readable.from(chunks)
     const fileName = getFileName(url)
 
-    await merged.pipe(fs.createWriteStream(fileName))
+    await merged
+      .pipe(zlib.createGzip())
+      .pipe(fs.createWriteStream(`${fileName}.gz`))
+
+    console.log('Downloading and compressing is done')
 
   } catch(err) {
     console.error(err)
