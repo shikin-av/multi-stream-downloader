@@ -1,5 +1,9 @@
+import { Readable } from 'node:stream'
+import fs from 'node:fs'
 import getHeaders from './utils/getHeaders.js'
 import getRange from './utils/getRange.js'
+import getFileName from './utils/getFileName.js' 
+import concatStreams from './utils/concatStreams.js'
 
 (async (url, streamCount) => {
   try {
@@ -20,6 +24,12 @@ import getRange from './utils/getRange.js'
 
       downloadStreams.push(stream)
     }
+
+    const chunks = await concatStreams(downloadStreams)
+    const merged = Readable.from(chunks)
+    const fileName = getFileName(url)
+
+    await merged.pipe(fs.createWriteStream(fileName))
 
   } catch(err) {
     console.error(err)
